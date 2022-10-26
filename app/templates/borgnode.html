@@ -1,0 +1,86 @@
+
+<html> 
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="stylesheet" type="text/css" href="../static/css/borgnode.css"> 
+
+
+
+
+	</head>
+	
+	<body>
+
+ <div class="parent">
+<div class="div3" ><h1 style="color:#00DD39;">Borgnode - Your Backup Node</h1></div>
+
+<div class="div1"> Empty </div>
+<div class="div2"> 
+
+          {% if html_backup_running %}
+
+    <h4 style="color:white;">Status:<p style="color: #00DD39; "> backup/restore
+        in progress</p></h4>
+    {% else %}
+
+    <h4 style="color:white;">Status: <p style="color: #00DD39; ">no
+        backup/restore in progress</p></h4>
+          {% endif %}
+</div>
+
+<div class="div4">  </div>
+
+<div class="div5"> Actions:
+
+<form class="grid" action="/backup" method="POST">
+    <input class="file_submit" type="Submit" value="Start Backup">
+</form>
+<form class="grid" action="/hddlist" method="POST">
+    <input class="file_submit" type="Submit" value="List Backup Archives">
+</form>
+
+</div>
+
+
+
+<div class="div6"> v. 0.1</div>
+ 
+<div class="div7">Console:
+
+{% for message in get_flashed_messages() %}
+<h2>{{ message }}</h2>
+{% endfor %}
+
+          {% if html_archives %}
+          <p style="color: blue; ">List of Backups: </p>
+
+          {% autoescape false %}
+
+{% for index, archive in html_archives %}
+<div>{{ index }}: {{ archive }} :<span style="color: blue; "> {{
+    html_archivetime[index] }} </span>  </div>
+{% endfor %}
+
+
+
+                    {% endautoescape %}
+
+                    <br>
+                    Backup Recovery:<br>
+                    eg: mss-MacBook-Pro-2022-10-18T18:59:25.106015
+ <form class="grid" action="/recover" method="POST">
+    <input name="text">
+     <input  type="Submit" value=" Recover this Backup">
+ </form>
+
+    {% endif %}
+
+
+</div> 
+
+    
+
+    </body>
+
+</html>
